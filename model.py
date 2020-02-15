@@ -8,7 +8,18 @@ from keras.optimizers import *
 from keras.callbacks import ModelCheckpoint, LearningRateScheduler
 from keras import backend as keras
 
-def unet(pretrained_weights = None, input_size = (256,256)):
+def dice_coef(y_true, y_pred):
+    smooth = 1
+    y_true_f = K.flatten(y_true)
+    y_pred_f = K.flatten(y_pred)
+    intersection = K.sum(y_true_f * y_pred_f)
+    return (2. * intersection + smooth) / (K.sum(y_true_f) + K.sum(y_pred_f) + smooth)
+
+def dice_coef_loss(y_true, y_pred):
+    print('dice_loss')
+    return 1-dice_coef(y_true, y_pred)
+
+def unet(pretrained_weights = None, input_size = (256,256, 3)):
     inputs = Input(input_size)
     #keras.layers.Conv2D(filters, kernel_size, strides=(1, 1), 
     #                   padding='valid', data_format=None, 
@@ -75,7 +86,7 @@ def unet(pretrained_weights = None, input_size = (256,256)):
     # Membuat Model 
     model = Model(input = inputs, output = conv10)
 
-    model.compile(optimizer = Adam(Lr = 1e-4), loss = 'dice_coef_loss', metrics = ['accuracy'])
+    model.compile(optimizer = Adam(Lr = 1e-4), loss = dice_coef_loss, metrics = ['accuracy'])
 
     if(pretrained_weights):
         model.load_weights(pretrained_weights)

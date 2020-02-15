@@ -82,7 +82,7 @@ def geneTrainNpy(image_path, mask_path, flag_multi_class = False, num_class = 2,
     image_name_arr = glob.glob(os.path.join(image_path, "%s*.png"%image_prefix))
     image_arr = []
     mask_arr = []
-    for index, item in enumerate(image_name_arr):
+    for item in enumerate(image_name_arr):
         img = io.imread(item, as_gray= image_as_gray)
         img = np.reshape(img, img.shape + (1,)) if image_as_gray else img
         mask = io.imread(item.replace(image_path, mask_path).replace(image_prefix, mask_prefix), as_gray= mask_as_gray)

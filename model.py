@@ -31,13 +31,13 @@ def unet(pretrained_weights = None, input_size = (256,256)):
     # Rangkaian Extraction 3
     conv3 = Conv2D(256, 3 , activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(pool2)
     conv3 = Conv2D(256, 3 , activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv3)
-    pool3 = MaxPooling(pooling_size = (2,2))(conv3)
+    pool3 = MaxPooling2D(pooling_size = (2,2))(conv3)
 
     # Rangkaian Extraction 4
     conv4 = Conv2D(512, 3 , activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(pool3)
     conv4 = Conv2D(512, 3 , activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv4)
     drop4 = Dropout(0.5)(conv4)
-    pool4 = MaxPooling(pooling_size = (2,2))(drop4)
+    pool4 = MaxPooling2D(pooling_size = (2,2))(drop4)
 
     # Rangkaian Extraction 5
     conv5 = Conv2D(1024, 3 , activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(pool4)

@@ -1,0 +1,5 @@
+unet_weights.hdf5
+.__pycache__
+.test
+image_arr.npy
+mask_arr.npy

@@ -1,5 +1,6 @@
 unet_weights.hdf5
 /__pycache__
 /data/test
+/data/train
 image_arr.npy
 mask_arr.npy

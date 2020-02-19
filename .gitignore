@@ -4,3 +4,5 @@ unet_weights.hdf5
 /data/train
 image_arr.npy
 mask_arr.npy
+/unet-old/data
+/unet-old/results

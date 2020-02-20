@@ -138,10 +138,10 @@ class myAugmentation(object):
 class dataProcess(object):
 
 	def __init__(self, out_rows, out_cols, 
-				data_path = './data/train/image', 
-				label_path = './data/train/label', 
-				test_path = './data/test', 
-				npy_path = './data/npydata', img_type = 'png'):
+				data_path = 'unet-old/data/train/image', 
+				label_path = 'unet-old/data/train/label', 
+				test_path = 'unet-old/data/test', 
+				npy_path = 'unet-old/data/npydata', img_type = 'png'):
 
 		"""
 		
@@ -210,8 +210,8 @@ class dataProcess(object):
 		print('-'*30)
 		print('load train images...')
 		print('-'*30)
-		imgs_train = np.load('./data/npydata/imgs_train.npy')
-		imgs_mask_train = np.load('./data/npydata/imgs_mask_train.npy')
+		imgs_train = np.load('unet-old/data/npydata/imgs_train.npy')
+		imgs_mask_train = np.load('unet-old/data/npydata/imgs_mask_train.npy')
 		imgs_train = imgs_train.astype('float32')
 		imgs_mask_train = imgs_mask_train.astype('float32')
 		imgs_train /= 255

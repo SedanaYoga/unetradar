@@ -6,5 +6,5 @@ unet-old/__pycache__
 image_arr.npy
 mask_arr.npy
 /unet-old/unet.hdf5
-/unet-old/data
+/unet-old/data/
 /unet-old/results

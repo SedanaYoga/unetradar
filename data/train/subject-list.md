@@ -20,3 +20,5 @@
 |18 |Eka |L9
 |19 |Samuel |L10
 |20 |Hanan |P10
+|21 |Dewa |P11
+|22 |Yoga |L11

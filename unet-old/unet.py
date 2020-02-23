@@ -166,5 +166,5 @@ class myUnet(object):
 
 if __name__ == '__main__':
 	myunet = myUnet()
-	#myunet.train()
+	myunet.train()
 	myunet.save_img()

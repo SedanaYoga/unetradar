@@ -8,3 +8,6 @@ mask_arr.npy
 /unet-old/unet.hdf5
 /unet-old/data/
 /unet-old/results
+/data/results-yoga/
+hasil-training.mp4
+result/

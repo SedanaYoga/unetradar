@@ -1,6 +1,13 @@
 unet_weights.hdf5
 /__pycache__
+unet-old/__pycache__
 /data/test
 /data/train
 image_arr.npy
 mask_arr.npy
+/unet-old/unet.hdf5
+/unet-old/data/
+/unet-old/results
+/data/results-yoga/
+hasil-training.mp4
+result/

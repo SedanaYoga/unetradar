@@ -1,0 +1,42 @@
+Train on 570 samples, validate on 30 samples
+Epoch 1/10
+570/570 [==============================] - 442s 775ms/step - loss: 0.0580 - accuracy: 0.9840 - val_loss: 0.0270 - val_accuracy: 0.9937
+
+Epoch 00001: loss improved from inf to 0.05797, saving model to unet_weights.hdf5
+Epoch 2/10
+570/570 [==============================] - 424s 744ms/step - loss: 0.0143 - accuracy: 0.9952 - val_loss: 0.0098 - val_accuracy: 0.9973
+
+Epoch 00002: loss improved from 0.05797 to 0.01434, saving model to unet_weights.hdf5
+Epoch 3/10
+570/570 [==============================] - 420s 736ms/step - loss: 0.0066 - accuracy: 0.9977 - val_loss: 0.0063 - val_accuracy: 0.9973
+
+Epoch 00003: loss improved from 0.01434 to 0.00665, saving model to unet_weights.hdf5
+Epoch 4/10
+570/570 [==============================] - 414s 726ms/step - loss: 0.0081 - accuracy: 0.9971 - val_loss: 0.0391 - val_accuracy: 0.9836
+
+Epoch 00004: loss did not improve from 0.00665
+Epoch 5/10
+570/570 [==============================] - 405s 710ms/step - loss: 0.0056 - accuracy: 0.9979 - val_loss: 0.0031 - val_accuracy: 0.9987
+
+Epoch 00005: loss improved from 0.00665 to 0.00563, saving model to unet_weights.hdf5
+Epoch 6/10
+570/570 [==============================] - 376s 660ms/step - loss: 0.0050 - accuracy: 0.9981 - val_loss: 0.0025 - val_accuracy: 0.9990
+
+Epoch 00006: loss improved from 0.00563 to 0.00496, saving model to unet_weights.hdf5
+Epoch 7/10
+570/570 [==============================] - 374s 656ms/step - loss: 0.0072 - accuracy: 0.9974 - val_loss: 0.0053 - val_accuracy: 0.9990
+
+Epoch 00007: loss did not improve from 0.00496
+Epoch 8/10
+570/570 [==============================] - 379s 665ms/step - loss: 0.0132 - accuracy: 0.9956 - val_loss: 0.0023 - val_accuracy: 0.9992
+
+Epoch 00008: loss did not improve from 0.00496
+Epoch 9/10
+570/570 [==============================] - 386s 678ms/step - loss: 0.0057 - accuracy: 0.9979 - val_loss: 0.0032 - val_accuracy: 0.9986
+
+Epoch 00009: loss did not improve from 0.00496
+Epoch 10/10
+570/570 [==============================] - 391s 685ms/step - loss: 0.0160 - accuracy: 0.9953 - val_loss: 0.0031 - val_accuracy: 0.9989
+
+Epoch 00010: loss did not improve from 0.00496
+<keras.callbacks.callbacks.History at 0x1abced0ccf8>

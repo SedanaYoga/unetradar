@@ -105,5 +105,6 @@ def labelVisualize(num_class, color_dict, img):
 def saveResult(save_path, npyfile, flag_multi_class = False, num_class = 1):
     for i, item in enumerate(npyfile):
         img = labelVisualize(num_class, COLOR_DICT, item) if flag_multi_class else item[:,:,0]
-        img = trans.resize(img, (432,532))
+        #img = trans.resize(img, (432,532)) # Gambar USG TA
+        img = trans.resize(img, (512,470)) # Gambar USG Phantom
         io.imsave(os.path.join(save_path,"%d_predict.png"%i), img)

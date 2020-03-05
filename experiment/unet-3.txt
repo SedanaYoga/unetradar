@@ -1,0 +1,386 @@
+improve from 0.01177
+Epoch 5/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0058 - accuracy: 0.9978 - val_loss: 0.0060 - val_accuracy: 0.9968
+
+Epoch 00005: loss improved from 0.01177 to 0.00581, saving model to unet_weights.hdf5
+Epoch 6/100
+1190/1190 [==============================] - 512s 431ms/step - loss: 0.0063 - accuracy: 0.9979 - val_loss: 0.0189 - val_accuracy: 0.9948
+
+Epoch 00006: loss did not improve from 0.00581
+Epoch 7/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0049 - accuracy: 0.9982 - val_loss: 0.0035 - val_accuracy: 0.9989
+
+Epoch 00007: loss improved from 0.00581 to 0.00490, saving model to unet_weights.hdf5
+Epoch 8/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0042 - accuracy: 0.9984 - val_loss: 0.0036 - val_accuracy: 0.9984
+
+Epoch 00008: loss improved from 0.00490 to 0.00424, saving model to unet_weights.hdf5
+Epoch 9/100
+1190/1190 [==============================] - 511s 430ms/step - loss: 0.0049 - accuracy: 0.9982 - val_loss: 0.0083 - val_accuracy: 0.9969
+
+Epoch 00009: loss did not improve from 0.00424
+Epoch 10/100
+1190/1190 [==============================] - 511s 430ms/step - loss: 0.0078 - accuracy: 0.9978 - val_loss: 0.0060 - val_accuracy: 0.9970
+
+Epoch 00010: loss did not improve from 0.00424
+Epoch 11/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0064 - accuracy: 0.9977 - val_loss: 0.0063 - val_accuracy: 0.9968
+
+Epoch 00011: loss did not improve from 0.00424
+Epoch 12/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0032 - accuracy: 0.9987 - val_loss: 0.0028 - val_accuracy: 0.9992
+
+Epoch 00012: loss improved from 0.00424 to 0.00324, saving model to unet_weights.hdf5
+Epoch 13/100
+1190/1190 [==============================] - 512s 431ms/step - loss: 0.0031 - accuracy: 0.9987 - val_loss: 0.0032 - val_accuracy: 0.9992
+
+Epoch 00013: loss improved from 0.00324 to 0.00306, saving model to unet_weights.hdf5
+Epoch 14/100
+1190/1190 [==============================] - 513s 431ms/step - loss: 0.0040 - accuracy: 0.9985 - val_loss: 0.0054 - val_accuracy: 0.9969
+
+Epoch 00014: loss did not improve from 0.00306
+Epoch 15/100
+1190/1190 [==============================] - 513s 431ms/step - loss: 0.0045 - accuracy: 0.9983 - val_loss: 0.0040 - val_accuracy: 0.9986
+
+Epoch 00015: loss did not improve from 0.00306
+Epoch 16/100
+1190/1190 [==============================] - 513s 431ms/step - loss: 0.0030 - accuracy: 0.9988 - val_loss: 0.0031 - val_accuracy: 0.9991
+
+Epoch 00016: loss improved from 0.00306 to 0.00304, saving model to unet_weights.hdf5
+Epoch 17/100
+1190/1190 [==============================] - 513s 431ms/step - loss: 0.0026 - accuracy: 0.9989 - val_loss: 0.0028 - val_accuracy: 0.9990
+
+Epoch 00017: loss improved from 0.00304 to 0.00264, saving model to unet_weights.hdf5
+Epoch 18/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0132 - accuracy: 0.9963 - val_loss: 0.0047 - val_accuracy: 0.9971
+
+Epoch 00018: loss did not improve from 0.00264
+Epoch 19/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0038 - accuracy: 0.9985 - val_loss: 0.0036 - val_accuracy: 0.9980
+
+Epoch 00019: loss did not improve from 0.00264
+Epoch 20/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0027 - accuracy: 0.9989 - val_loss: 0.0051 - val_accuracy: 0.9976
+
+Epoch 00020: loss did not improve from 0.00264
+Epoch 21/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0028 - accuracy: 0.9988 - val_loss: 0.0031 - val_accuracy: 0.9991
+
+Epoch 00021: loss did not improve from 0.00264
+Epoch 22/100
+1190/1190 [==============================] - 513s 431ms/step - loss: 0.0031 - accuracy: 0.9988 - val_loss: 0.0043 - val_accuracy: 0.9984
+
+Epoch 00022: loss did not improve from 0.00264
+Epoch 23/100
+1190/1190 [==============================] - 512s 431ms/step - loss: 0.0084 - accuracy: 0.9979 - val_loss: 0.0036 - val_accuracy: 0.9987
+
+Epoch 00023: loss did not improve from 0.00264
+Epoch 24/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0028 - accuracy: 0.9989 - val_loss: 0.0034 - val_accuracy: 0.9986
+
+Epoch 00024: loss did not improve from 0.00264
+Epoch 25/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0029 - accuracy: 0.9988 - val_loss: 0.0068 - val_accuracy: 0.9964
+
+Epoch 00025: loss did not improve from 0.00264
+Epoch 26/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0074 - accuracy: 0.9978 - val_loss: 0.0037 - val_accuracy: 0.9986
+
+Epoch 00026: loss did not improve from 0.00264
+Epoch 27/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0029 - accuracy: 0.9989 - val_loss: 0.0030 - val_accuracy: 0.9988
+
+Epoch 00027: loss did not improve from 0.00264
+Epoch 28/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0027 - accuracy: 0.9989 - val_loss: 0.0033 - val_accuracy: 0.9987
+
+Epoch 00028: loss did not improve from 0.00264
+Epoch 29/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0029 - accuracy: 0.9988 - val_loss: 0.0028 - val_accuracy: 0.9991
+
+Epoch 00029: loss did not improve from 0.00264
+Epoch 30/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0023 - accuracy: 0.9991 - val_loss: 0.0046 - val_accuracy: 0.9977
+
+Epoch 00030: loss improved from 0.00264 to 0.00227, saving model to unet_weights.hdf5
+Epoch 31/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0056 - accuracy: 0.9984 - val_loss: 0.0053 - val_accuracy: 0.9975
+
+Epoch 00031: loss did not improve from 0.00227
+Epoch 32/100
+1190/1190 [==============================] - 513s 431ms/step - loss: 0.0029 - accuracy: 0.9989 - val_loss: 0.0032 - val_accuracy: 0.9986
+
+Epoch 00032: loss did not improve from 0.00227
+Epoch 33/100
+1190/1190 [==============================] - 513s 431ms/step - loss: 0.0086 - accuracy: 0.9978 - val_loss: 0.0070 - val_accuracy: 0.9970
+
+Epoch 00033: loss did not improve from 0.00227
+Epoch 34/100
+1190/1190 [==============================] - 513s 431ms/step - loss: 0.0033 - accuracy: 0.9987 - val_loss: 0.0036 - val_accuracy: 0.9985
+
+Epoch 00034: loss did not improve from 0.00227
+Epoch 35/100
+1190/1190 [==============================] - 513s 431ms/step - loss: 0.0027 - accuracy: 0.9989 - val_loss: 0.0031 - val_accuracy: 0.9988
+
+Epoch 00035: loss did not improve from 0.00227
+Epoch 36/100
+1190/1190 [==============================] - 513s 431ms/step - loss: 0.0023 - accuracy: 0.9991 - val_loss: 0.0025 - val_accuracy: 0.9992
+
+Epoch 00036: loss did not improve from 0.00227
+Epoch 37/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0022 - accuracy: 0.9991 - val_loss: 0.0028 - val_accuracy: 0.9987
+
+Epoch 00037: loss improved from 0.00227 to 0.00222, saving model to unet_weights.hdf5
+Epoch 38/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0055 - accuracy: 0.9984 - val_loss: 0.0179 - val_accuracy: 0.9932
+
+Epoch 00038: loss did not improve from 0.00222
+Epoch 39/100
+1190/1190 [==============================] - 513s 431ms/step - loss: 0.0035 - accuracy: 0.9987 - val_loss: 0.0060 - val_accuracy: 0.9970
+
+Epoch 00039: loss did not improve from 0.00222
+Epoch 40/100
+1190/1190 [==============================] - 513s 431ms/step - loss: 0.0028 - accuracy: 0.9989 - val_loss: 0.0030 - val_accuracy: 0.9988
+
+Epoch 00040: loss did not improve from 0.00222
+Epoch 41/100
+1190/1190 [==============================] - 513s 431ms/step - loss: 0.0022 - accuracy: 0.9991 - val_loss: 0.0027 - val_accuracy: 0.9991
+
+Epoch 00041: loss improved from 0.00222 to 0.00218, saving model to unet_weights.hdf5
+Epoch 42/100
+1190/1190 [==============================] - 513s 431ms/step - loss: 0.0023 - accuracy: 0.9991 - val_loss: 0.0037 - val_accuracy: 0.9984
+
+Epoch 00042: loss did not improve from 0.00218
+Epoch 43/100
+1190/1190 [==============================] - 513s 431ms/step - loss: 0.0032 - accuracy: 0.9988 - val_loss: 0.0036 - val_accuracy: 0.9986
+
+Epoch 00043: loss did not improve from 0.00218
+Epoch 44/100
+1190/1190 [==============================] - 513s 431ms/step - loss: 0.0021 - accuracy: 0.9991 - val_loss: 0.0029 - val_accuracy: 0.9988
+
+Epoch 00044: loss improved from 0.00218 to 0.00213, saving model to unet_weights.hdf5
+Epoch 45/100
+1190/1190 [==============================] - 513s 431ms/step - loss: 0.0020 - accuracy: 0.9992 - val_loss: 0.0021 - val_accuracy: 0.9993
+
+Epoch 00045: loss improved from 0.00213 to 0.00199, saving model to unet_weights.hdf5
+Epoch 46/100
+1190/1190 [==============================] - 512s 431ms/step - loss: 0.0035 - accuracy: 0.9987 - val_loss: 0.0029 - val_accuracy: 0.9989
+
+Epoch 00046: loss did not improve from 0.00199
+Epoch 47/100
+1190/1190 [==============================] - 512s 431ms/step - loss: 0.0021 - accuracy: 0.9991 - val_loss: 0.0023 - val_accuracy: 0.9991
+
+Epoch 00047: loss did not improve from 0.00199
+Epoch 48/100
+1190/1190 [==============================] - 512s 431ms/step - loss: 0.0019 - accuracy: 0.9992 - val_loss: 0.0022 - val_accuracy: 0.9991
+
+Epoch 00048: loss improved from 0.00199 to 0.00195, saving model to unet_weights.hdf5
+Epoch 49/100
+1190/1190 [==============================] - 513s 431ms/step - loss: 0.0020 - accuracy: 0.9992 - val_loss: 0.0042 - val_accuracy: 0.9984
+
+Epoch 00049: loss did not improve from 0.00195
+Epoch 50/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0033 - accuracy: 0.9988 - val_loss: 0.0024 - val_accuracy: 0.9993
+
+Epoch 00050: loss did not improve from 0.00195
+Epoch 51/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0042 - accuracy: 0.9987 - val_loss: 0.0037 - val_accuracy: 0.9984
+
+Epoch 00051: loss did not improve from 0.00195
+Epoch 52/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0025 - accuracy: 0.9990 - val_loss: 0.0034 - val_accuracy: 0.9983
+
+Epoch 00052: loss did not improve from 0.00195
+Epoch 53/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0019 - accuracy: 0.9992 - val_loss: 0.0022 - val_accuracy: 0.9992
+
+Epoch 00053: loss improved from 0.00195 to 0.00194, saving model to unet_weights.hdf5
+Epoch 54/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0018 - accuracy: 0.9992 - val_loss: 0.0023 - val_accuracy: 0.9990
+
+Epoch 00054: loss improved from 0.00194 to 0.00182, saving model to unet_weights.hdf5
+Epoch 55/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0026 - accuracy: 0.9991 - val_loss: 0.0041 - val_accuracy: 0.9982
+
+Epoch 00055: loss did not improve from 0.00182
+Epoch 56/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0020 - accuracy: 0.9992 - val_loss: 0.0033 - val_accuracy: 0.9984
+
+Epoch 00056: loss did not improve from 0.00182
+Epoch 57/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0021 - accuracy: 0.9992 - val_loss: 0.0026 - val_accuracy: 0.9990
+
+Epoch 00057: loss did not improve from 0.00182
+Epoch 58/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0018 - accuracy: 0.9993 - val_loss: 0.0031 - val_accuracy: 0.9984
+
+Epoch 00058: loss improved from 0.00182 to 0.00177, saving model to unet_weights.hdf5
+Epoch 59/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0017 - accuracy: 0.9993 - val_loss: 0.0022 - val_accuracy: 0.9991
+
+Epoch 00059: loss improved from 0.00177 to 0.00171, saving model to unet_weights.hdf5
+Epoch 60/100
+1190/1190 [==============================] - 512s 431ms/step - loss: 0.0032 - accuracy: 0.9989 - val_loss: 0.0031 - val_accuracy: 0.9984
+
+Epoch 00060: loss did not improve from 0.00171
+Epoch 61/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0018 - accuracy: 0.9993 - val_loss: 0.0042 - val_accuracy: 0.9982
+
+Epoch 00061: loss did not improve from 0.00171
+Epoch 62/100
+1190/1190 [==============================] - 513s 431ms/step - loss: 0.0016 - accuracy: 0.9993 - val_loss: 0.0023 - val_accuracy: 0.9990
+
+Epoch 00062: loss improved from 0.00171 to 0.00161, saving model to unet_weights.hdf5
+Epoch 63/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0015 - accuracy: 0.9993 - val_loss: 0.0019 - val_accuracy: 0.9993
+
+Epoch 00063: loss improved from 0.00161 to 0.00154, saving model to unet_weights.hdf5
+Epoch 64/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0027 - accuracy: 0.9992 - val_loss: 0.0198 - val_accuracy: 0.9953
+
+Epoch 00064: loss did not improve from 0.00154
+Epoch 65/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0034 - accuracy: 0.9987 - val_loss: 0.0042 - val_accuracy: 0.9978
+
+Epoch 00065: loss did not improve from 0.00154
+Epoch 66/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0017 - accuracy: 0.9993 - val_loss: 0.0025 - val_accuracy: 0.9989
+
+Epoch 00066: loss did not improve from 0.00154
+Epoch 67/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0015 - accuracy: 0.9993 - val_loss: 0.0026 - val_accuracy: 0.9987
+
+Epoch 00067: loss did not improve from 0.00154
+Epoch 68/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0016 - accuracy: 0.9993 - val_loss: 0.0026 - val_accuracy: 0.9988
+
+Epoch 00068: loss did not improve from 0.00154
+Epoch 69/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0014 - accuracy: 0.9994 - val_loss: 0.0047 - val_accuracy: 0.9979
+
+Epoch 00069: loss improved from 0.00154 to 0.00143, saving model to unet_weights.hdf5
+Epoch 70/100
+1190/1190 [==============================] - 512s 431ms/step - loss: 0.0016 - accuracy: 0.9993 - val_loss: 0.0016 - val_accuracy: 0.9994
+
+Epoch 00070: loss did not improve from 0.00143
+Epoch 71/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0066 - accuracy: 0.9988 - val_loss: 0.0039 - val_accuracy: 0.9981
+
+Epoch 00071: loss did not improve from 0.00143
+Epoch 72/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0021 - accuracy: 0.9991 - val_loss: 0.0018 - val_accuracy: 0.9994
+
+Epoch 00072: loss did not improve from 0.00143
+Epoch 73/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0019 - accuracy: 0.9992 - val_loss: 0.0040 - val_accuracy: 0.9981
+
+Epoch 00073: loss did not improve from 0.00143
+Epoch 74/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0021 - accuracy: 0.9991 - val_loss: 0.0022 - val_accuracy: 0.9991
+
+Epoch 00074: loss did not improve from 0.00143
+Epoch 75/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0015 - accuracy: 0.9994 - val_loss: 0.0051 - val_accuracy: 0.9981
+
+Epoch 00075: loss did not improve from 0.00143
+Epoch 76/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0015 - accuracy: 0.9994 - val_loss: 0.0035 - val_accuracy: 0.9986
+
+Epoch 00076: loss did not improve from 0.00143
+Epoch 77/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0047 - accuracy: 0.9987 - val_loss: 0.0045 - val_accuracy: 0.9978
+
+Epoch 00077: loss did not improve from 0.00143
+Epoch 78/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0019 - accuracy: 0.9992 - val_loss: 0.0030 - val_accuracy: 0.9985
+
+Epoch 00078: loss did not improve from 0.00143
+Epoch 79/100
+1190/1190 [==============================] - 512s 431ms/step - loss: 0.0015 - accuracy: 0.9994 - val_loss: 0.0025 - val_accuracy: 0.9989
+
+Epoch 00079: loss did not improve from 0.00143
+Epoch 80/100
+1190/1190 [==============================] - 512s 431ms/step - loss: 0.0014 - accuracy: 0.9994 - val_loss: 0.0023 - val_accuracy: 0.9989
+
+Epoch 00080: loss improved from 0.00143 to 0.00137, saving model to unet_weights.hdf5
+Epoch 81/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0014 - accuracy: 0.9994 - val_loss: 0.0018 - val_accuracy: 0.9992
+
+Epoch 00081: loss improved from 0.00137 to 0.00136, saving model to unet_weights.hdf5
+Epoch 82/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0014 - accuracy: 0.9994 - val_loss: 0.0036 - val_accuracy: 0.9986
+
+Epoch 00082: loss improved from 0.00136 to 0.00135, saving model to unet_weights.hdf5
+Epoch 83/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0023 - accuracy: 0.9992 - val_loss: 0.0031 - val_accuracy: 0.9984
+
+Epoch 00083: loss did not improve from 0.00135
+Epoch 84/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0015 - accuracy: 0.9994 - val_loss: 0.0017 - val_accuracy: 0.9993
+
+Epoch 00084: loss did not improve from 0.00135
+Epoch 85/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0012 - accuracy: 0.9995 - val_loss: 0.0021 - val_accuracy: 0.9990
+
+Epoch 00085: loss improved from 0.00135 to 0.00125, saving model to unet_weights.hdf5
+Epoch 86/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0013 - accuracy: 0.9995 - val_loss: 0.0016 - val_accuracy: 0.9994
+
+Epoch 00086: loss did not improve from 0.00125
+Epoch 87/100
+1190/1190 [==============================] - 512s 431ms/step - loss: 0.0012 - accuracy: 0.9995 - val_loss: 0.0016 - val_accuracy: 0.9993
+
+Epoch 00087: loss improved from 0.00125 to 0.00124, saving model to unet_weights.hdf5
+Epoch 88/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0068 - accuracy: 0.9986 - val_loss: 0.0041 - val_accuracy: 0.9986
+
+Epoch 00088: loss did not improve from 0.00124
+Epoch 89/100
+1190/1190 [==============================] - 512s 431ms/step - loss: 0.0037 - accuracy: 0.9988 - val_loss: 0.0036 - val_accuracy: 0.9984
+
+Epoch 00089: loss did not improve from 0.00124
+Epoch 90/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0022 - accuracy: 0.9992 - val_loss: 0.0055 - val_accuracy: 0.9974
+
+Epoch 00090: loss did not improve from 0.00124
+Epoch 91/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0038 - accuracy: 0.9989 - val_loss: 0.0025 - val_accuracy: 0.9988
+
+Epoch 00091: loss did not improve from 0.00124
+Epoch 92/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0019 - accuracy: 0.9992 - val_loss: 0.0025 - val_accuracy: 0.9989
+
+Epoch 00092: loss did not improve from 0.00124
+Epoch 93/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0015 - accuracy: 0.9994 - val_loss: 0.0049 - val_accuracy: 0.9980
+
+Epoch 00093: loss did not improve from 0.00124
+Epoch 94/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0014 - accuracy: 0.9994 - val_loss: 0.0029 - val_accuracy: 0.9987
+
+Epoch 00094: loss did not improve from 0.00124
+Epoch 95/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0013 - accuracy: 0.9994 - val_loss: 0.0035 - val_accuracy: 0.9983
+
+Epoch 00095: loss did not improve from 0.00124
+Epoch 96/100
+1190/1190 [==============================] - 512s 431ms/step - loss: 0.0013 - accuracy: 0.9994 - val_loss: 0.0024 - val_accuracy: 0.9990
+
+Epoch 00096: loss did not improve from 0.00124
+Epoch 97/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0013 - accuracy: 0.9994 - val_loss: 0.0039 - val_accuracy: 0.9984
+
+Epoch 00097: loss did not improve from 0.00124
+Epoch 98/100
+1190/1190 [==============================] - 512s 430ms/step - loss: 0.0035 - accuracy: 0.9990 - val_loss: 0.0138 - val_accuracy: 0.9947
+
+Epoch 00098: loss did not improve from 0.00124
+Epoch 99/100
+1190/1190 [==============================] - 512s 431ms/step - loss: 0.0024 - accuracy: 0.9991 - val_loss: 0.0058 - val_accuracy: 0.9974
+
+Epoch 00099: loss did not improve from 0.00124
+Epoch 100/100
+1190/1190 [==============================] - 512s 431ms/step - loss: 0.0016 - accuracy: 0.9993 - val_loss: 0.0019 - val_accuracy: 0.9993
+
+Epoch 00100: loss did not improve from 0.00124
+<keras.callbacks.callbacks.History at 0x2085c5ead68>

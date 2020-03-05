@@ -42,6 +42,21 @@ def adjustData(img,mask,flag_multi_class, num_class):
 def trainGenerator(batch_size, train_path, image_folder, mask_folder, aug_dict, image_color_mode = "grayscale",
                     mask_color_mode = "grayscale", image_save_prefix = "image", mask_save_prefix = "mask",
                     flag_multi_class = False, num_class = 1, save_to_dir = None, traget_size = (256,256), seed = 1):
+    '''Batch_size, 
+    train_path, 
+    image_folder, 
+    mask_folder, 
+    aug_dict, 
+    image_color_mode = "grayscale",
+    mask_color_mode = "grayscale", 
+    image_save_prefix = "image", 
+    mask_save_prefix = "mask",
+    flag_multi_class = False, 
+    num_class = 1, 
+    save_to_dir = None, 
+    traget_size = (256,256), 
+    seed = 1'''
+
     image_datagen = ImageDataGenerator(**aug_dict)
     mask_datagen = ImageDataGenerator(**aug_dict)
     image_generator = image_datagen.flow_from_directory(
@@ -69,7 +84,7 @@ def trainGenerator(batch_size, train_path, image_folder, mask_folder, aug_dict, 
         img, mask = adjustData(img, mask, flag_multi_class, num_class)
         yield (img, mask)
 
-def testGenerator(test_path, num_image = 300, target_size = (256,256), flag_multi_class = False, as_gray = True):
+def testGenerator(test_path, num_image = 500, target_size = (256,256), flag_multi_class = False, as_gray = True):
     for i in range(num_image):
         #img = io.imread(os.path.join(test_path, "%d.png"%i), as_gray = as_gray)
         img = io.imread(os.path.join(test_path, "%d.png"%i), as_gray = as_gray)
@@ -105,6 +120,6 @@ def labelVisualize(num_class, color_dict, img):
 def saveResult(save_path, npyfile, flag_multi_class = False, num_class = 1):
     for i, item in enumerate(npyfile):
         img = labelVisualize(num_class, COLOR_DICT, item) if flag_multi_class else item[:,:,0]
-        #img = trans.resize(img, (432,532)) # Gambar USG TA
-        img = trans.resize(img, (512,470)) # Gambar USG Phantom
-        io.imsave(os.path.join(save_path,"%d_predict.png"%i), img)
+        img = trans.resize(img, (432,532)) # Gambar USG TA
+        #img = trans.resize(img, (512,470)) # Gambar USG Phantom
+        io.imsave(os.path.join(save_path,"%d_predict.png"%i), img, check_contrast = False)

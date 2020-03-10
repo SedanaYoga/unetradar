@@ -1,5 +1,5 @@
 # Segmentation of Radial Artery USG Images using Convolutional Neural Network for Artery Access Insertion
-Struggling with new stuff that called Deep Learning, but I guess lots of fun will struct my brain hahaha
+Struggling with new stuff that called Deep Learning, lots of fun will smash my brain hahaha
 
 ## The Data
 

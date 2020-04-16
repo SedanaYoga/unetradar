@@ -10,4 +10,6 @@ mask_arr.npy
 /unet-old/results
 /data/results-yoga/
 hasil-training.mp4
-result/
+results/
+video-results/
+data/Ground Truth/

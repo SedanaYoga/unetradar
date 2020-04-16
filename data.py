@@ -28,6 +28,7 @@ green = np.array([0, 255, 0])
 blue = np.array([0, 0, 255])
 yellow = np.array([255, 255, 0])
 aqua = np.array([0, 255, 255])
+white = np.array([255,255,255])
 
 def adjustData(img,mask,flag_multi_class, num_class):
     if(flag_multi_class):
@@ -126,6 +127,7 @@ def labelVisualize(num_class, color_dict, img):
 
 def saveResult(save_path, npyfile, flag_multi_class = False, num_class = 1):
     for i, item in enumerate(npyfile):
+        npyfile.dtype()
         img = labelVisualize(num_class, COLOR_DICT, item) if flag_multi_class else item[:,:,0]
         img = trans.resize(img, (432,532)) # Gambar USG TA
         #img = trans.resize(img, (512,470)) # Gambar USG Phantom
@@ -138,7 +140,7 @@ def masking(img, mask, height=432, width=532, color = yellow):
     img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR) # kalau shapenya (432,532) atau grayscale
     for i in range(mask.shape[0]-1):
         for j in range(mask.shape[1]-1):
-            if (mask[i,j] >= 220):
+            if (mask[i,j] >= 100):
                 mask_out[i,j,:] = mask[i,j] 
                 mask_out[i,j,:] = color
                 img[i,j,:] = mask_out[i,j,:]

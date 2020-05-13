@@ -16,10 +16,11 @@ from scipy.ndimage import gaussian_filter
 import subprocess
 
 
+
 ############################################################## INISIALISASI
 st.title("GUI for U-Net Radar")
 list_menu = ['Home','Pre-processing', 'CNN Segmentation', 'Convertion']
-sb_menu = st.sidebar.selectbox('Pilih menu : ', list_menu, index = 2)
+sb_menu = st.sidebar.selectbox('Pilih menu : ', list_menu, index = 0)
 
 ############################################################## PERSIAPAN DATA UNTUK PREPROCESSING
 data_path = './data-gui/example/1ExtractedImage/'
@@ -59,14 +60,43 @@ def filter_func():
             st.image([cropped[i], img_gaussian, rescale, img_histeq, img_median], caption = cap_list_filter, width = 125)
             st.image([cropped[i],img_median], caption = ['Gambar Hasil Cropping', 'Hasil Proses Filtering'], width = 330)
 
-def saveResult(save_path, npyfile, flag_multi_class = False, num_class = 1):
-    for i, item in enumerate(npyfile):
-        img = labelVisualize(num_class, COLOR_DICT, item) if flag_multi_class else item[:,:,0]
-        print(img.shape)
-        img = trans.resize(img, (432,532)) # Gambar USG TA
-        #img = trans.resize(img, (512,470)) # Gambar USG Phantom
-        io.imsave(os.path.join(save_path,"%d_predict.png"%i), img, check_contrast=False)
+def masking(img, mask, th, height=432, width=532, color = None):
+    '''.'''
+    #mask_out = np.zeros((512, 470, 3), dtype = 'uint8') #phantom
+    mask_out = np.zeros((height, width, 3), dtype = 'uint8') #GE
+    img = np.zeros((height, width, 3), dtype = 'uint8')
+    for i in range(mask.shape[0]-1):
+        for j in range(mask.shape[1]-1):
+            if (mask[i,j] >= th):
+                mask_out[i,j,:] = mask[i,j] 
+                mask_out[i,j,:] = color
+                img[i,j,:] = mask_out[i,j,:]
+    segmented = img
+    return segmented
 
+def masking_def():
+    Merah = np.array([255, 0, 0])
+    Hijau = np.array([0, 255, 0])
+    Biru = np.array([0, 0, 255])
+    Kuning = np.array([255, 255, 0])
+    Aqua = np.array([0, 255, 255])
+    Putih = np.array([255,255,255])
+    input_mask_color = st.selectbox('Pilih Warna', ['Merah','Hijau','Biru','Kuning','Aqua','Putih'], index = 4)
+    input_thres = st.number_input('Atur Threshold', min_value = 1, max_value=255, value = 30, step=1, key = 0)
+    pred_path = './data-gui/example/test/'
+    pred_list = os.listdir(pred_path)
+    masked = np.zeros((len(pred_list), 432, 532, 3), dtype ='uint8')
+    if input_thres:
+        for i in range(len(pred_list)):
+            masked[i] = masking(np.zeros((432, 532, 3), dtype = 'uint8'), io.imread(pred_path+str(i)+'_predict.png'), th=input_thres, color = vars()[input_mask_color])
+        st.image([masked[0],masked[1],masked[2],masked[3],masked[4]], width = 126)
+        st.image([io.imread(pred_path+'0_predict.png'), masked[0]], width = 333)
+
+def compressing_def():
+    compress_file = open('./data-gui/example/video/testFinalWeight.mp4','rb')
+    compress_bytes = compress_file.read()
+
+    st.video(compress_bytes)
     
 ############################################################## PROSEDUR UNTUK MENU SIDEBAR
 
@@ -93,5 +123,19 @@ if sb_menu == 'CNN Segmentation':
     st.markdown('### **Hasil Data Testing**')
     test_button = st.button('Show testing result', key=0)
     if test_button:
-        subprocess.Popen(r'explorer /select,"D:\DATA\Institut Teknologi Sepuluh Nopember\MATERI\SEMESTER VIII\Tugas Akhir\GitRepo\data\test"')
-        #subprocess.Popen(["explorer", "/select,", ".\data\test\"])
+        subprocess.Popen(r'explorer /select,"D:\DATA\Institut Teknologi Sepuluh Nopember\MATERI\SEMESTER VIII\Tugas Akhir\GitRepo\data\test\0.png"')
+if sb_menu == 'Convertion':
+    st.header('**Konversi Sekuens Gambar ke Video**')
+    st.markdown('Pada halaman ini akan menjelaskan bagaimana metode untuk mengembalikan keluaran dari sistem CNN, berupa gambar, menjadi sebuah video yang memiliki properti yang sama hanya saja ditambahkan *mask* yaitu daerah spesifik yang menunjukkan *region of interest* (ROI) dari arteri radialis. Perlu digarisbawahi bahwa hasil konversi ini akan berhasil jika data *testing* yang diuji pada model CNN harus berupa sekuens *frame* dari sebuah video. Bagian konversi ini akan dibagi menjadi dua tahap yaitu proses *masking* dan proses *compressing*.')
+    st.markdown('### **Proses Masking**')
+    st.markdown('Proses masking pada dasarnya hanya menempel gambar prediksi baik pada gambar training maupun gambar asli dari USG tanpa mengurangi kualitasnya (resolusi hasil masking sama dengan hasil citra USG asli). Penambahan warna pada gambar prediksi menjadi penting sebagai pembeda ROI.')
+    masking_def()
+    st.markdown('### **Proses Compressing**')
+    st.markdown('Pada dasarnya tujuan dari *compressing* ini cukup sederhana, yaitu menggabungkan semua hasil *masking* pada satu video utuh dan kembali mempunyai format seperti video USG asli. Ada banyak cara untuk menggabungkan *frame*, namun cara yang paling sederhana dan cepat adalah menggunakan FFmpeg.')
+    st.markdown('Berikut adalah kode *compressing* menggunakan aplikasi FFmpeg pada *command-line*')
+    st.code("""ffmpeg -r 30 -f image2 -i %d.png -vcodec libx264 -crf 15  -pix_fmt yuv420p test.mp4
+    """, language="python")
+    st.markdown('Parameter yang digunakan antara lain, *framerate* (FPS) = 30, *constant rate factor* (CRF) = 15, *coder-decoder* (codec) = libx264, dan *pixel format* (pix_fmt) = yuv420p.')
+    st.markdown('Hasil kompresi dalam bentuk video')
+    compressing_def()
+            

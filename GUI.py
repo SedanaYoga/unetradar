@@ -41,7 +41,7 @@ def home_sb():
     st.header('**Segmentasi Gambar Ultrasound Arteri Radialis Menggunakan Convolutional Neural Network untuk Akses Insersi Arteri**')
     st.markdown('## Abstrak')
     st.write('Kateterisasi dan kanulasi melalui arteri radialis sudah menjadi prosedur umum yang dilakukan para ahli untuk masa perioperatif. Meskipun tingkat kesuksesan yang tinggi untuk para ahli berpengalaman menggunakan teknik palpasi, ada beberapa kasus yang mana secara teknis sedikit sulit (hipotensi dan obesitas). Komplikasi yang paling sering terjadi pada saat kateterisasi melalui arteri radialis adalah oklusi arteri sementara (19.7 %) dan hematoma (14.4%), dengan infeksi pada tempat pemasukan (1.3%), haemorrhage (0.53%), dan bacteremia (0.13%) [1]. Suatu sistem ultrasound menjadi pilihan untuk membantu visualisasi para ahli terkait kelebihannya dalam aspek kenyamanan, ekonomis, dan non-ionisasi. Penelitian tentang arteri radialis masih sangat minim karena morfologi yang lebih kecil daripada arteri umum lainnya (Arteri Karotis dan Femoralis). Penelitian Smistad, et al telah membuktikan bahwa sistem ultrasound pada pembuluh darah sudah sangat berkembang—menerapkan tiga metode sekaligus, deteksi, tracking, dan rekonstruksi 3D secara real-time—dan mempunyai potensi untuk dikembangkan pada arteri lainnya, arteri radialis. [2] Sistem yang dibutuhkan saat ini adalah sistem segmentasi otomatis yang mana pada kali ini mengusulkan penggunaan metode deep learning Convolution Neural Network (CNN) untuk mendapatkan visualisasi citra pembuluh darah arteri radialis sebagai alat dukung para ahli pada saat melakukan insersi ke intra-arterial. Sistem dibagi menjadi tiga proses yaitu persiapan data, segmentasi, dan konversi. Dari hasil pengujian, didapatkan bahwa proses segmentasi citra mendapatkan nilai rata-rata dice similarity coefficient sebesar 0.935 dan rata-rata nilai error 0.124.')
-
+    #st.markdown("<h4 style='text-align: justify; color: black;'>Kateterisasi dan kanulasi melalui arteri radialis sudah menjadi prosedur umum yang dilakukan para ahli untuk masa perioperatif. Meskipun tingkat kesuksesan yang tinggi untuk para ahli berpengalaman menggunakan teknik palpasi, ada beberapa kasus yang mana secara teknis sedikit sulit (hipotensi dan obesitas). Komplikasi yang paling sering terjadi pada saat kateterisasi melalui arteri radialis adalah oklusi arteri sementara (19.7 %) dan hematoma (14.4%), dengan infeksi pada tempat pemasukan (1.3%), haemorrhage (0.53%), dan bacteremia (0.13%) [1]. Suatu sistem ultrasound menjadi pilihan untuk membantu visualisasi para ahli terkait kelebihannya dalam aspek kenyamanan, ekonomis, dan non-ionisasi. Penelitian tentang arteri radialis masih sangat minim karena morfologi yang lebih kecil daripada arteri umum lainnya (Arteri Karotis dan Femoralis). Penelitian Smistad, et al telah membuktikan bahwa sistem ultrasound pada pembuluh darah sudah sangat berkembang—menerapkan tiga metode sekaligus, deteksi, tracking, dan rekonstruksi 3D secara real-time—dan mempunyai potensi untuk dikembangkan pada arteri lainnya, arteri radialis. [2] Sistem yang dibutuhkan saat ini adalah sistem segmentasi otomatis yang mana pada kali ini mengusulkan penggunaan metode deep learning Convolution Neural Network (CNN) untuk mendapatkan visualisasi citra pembuluh darah arteri radialis sebagai alat dukung para ahli pada saat melakukan insersi ke intra-arterial. Sistem dibagi menjadi tiga proses yaitu persiapan data, segmentasi, dan konversi. Dari hasil pengujian, didapatkan bahwa proses segmentasi citra mendapatkan nilai rata-rata dice similarity coefficient sebesar 0.935 dan rata-rata nilai error 0.124.</h1>", unsafe_allow_html=True)
 def crop_func(): 
     slide_crop = st.slider('', min_value = 0, max_value = len(file_path)-1, key = 0)
     for i in range(len(file_path)):
@@ -90,14 +90,64 @@ def masking_def():
         for i in range(len(pred_list)):
             masked[i] = masking(np.zeros((432, 532, 3), dtype = 'uint8'), io.imread(pred_path+str(i)+'_predict.png'), th=input_thres, color = vars()[input_mask_color])
         st.image([masked[0],masked[1],masked[2],masked[3],masked[4]], width = 126)
-        st.image([io.imread(pred_path+'0_predict.png'), masked[0]], width = 333)
+        st.image([io.imread(pred_path+'1_predict.png'), masked[1]], width = 333)
 
 def compressing_def():
     compress_file = open('./data-gui/example/video/testFinalWeight.mp4','rb')
     compress_bytes = compress_file.read()
 
     st.video(compress_bytes)
-    
+
+def dice(im1, im2, empty_score=1.0):
+    im1 = np.asarray(im1).astype(np.bool)
+    im2 = np.asarray(im2).astype(np.bool)
+    if im1.shape != im2.shape:
+        raise ValueError("Shape mismatch: im1 and im2 must have the same shape.")
+    im_sum = im1.sum() + im2.sum()
+    if im_sum == 0:
+        return empty_score
+    intersection = np.logical_and(im1, im2)
+    return 2. * intersection.sum() / im_sum
+def dscdef():
+    dsc_button = st.button('Run DSC', key = 1)
+    if dsc_button:
+        list_predict = os.listdir(path_predict)
+        list_acuan = os.listdir(path_acuan)
+        dsc = np.zeros(len(list_predict), dtype = float)
+        temp = 0
+
+        for i in range(len(list_predict)):
+            img1 = cv2.cvtColor(cv2.imread(path_predict+str(i)+'.png'), cv2.COLOR_RGB2GRAY)
+            img2 = cv2.cvtColor(cv2.imread(path_acuan+str(i)+'.png'), cv2.COLOR_RGB2GRAY)
+            dsc[i] = dice(img1, img2)
+            temp = temp + dsc[i]
+            #st.write(i,dsc[i])  
+        hasil = temp/len(list_predict)
+        st.write('**Hasil rata-rata total: **')
+        st.markdown(hasil)
+
+def pixeld():
+    pixel_button = st.button('Run Pixel Difference', key = 2)
+    if pixel_button:
+        list_predict = os.listdir(path_predict)
+        list_acuan = os.listdir(path_acuan)
+        temp = 0
+        aa = 0
+        bb = 0
+        for i in range(len(list_acuan)):
+            a = np.count_nonzero(cv2.imread(path_predict+str(i)+'.png')==255)
+            b = np.count_nonzero(cv2.imread(path_acuan+str(i)+'.png')==255)
+            avg = abs(a-b)/b
+            #st.write(i, b, a, avg)
+            temp = temp + avg
+            aa = aa + a
+            bb = bb + b
+        temp = temp/len(list_acuan)
+        aa = aa/len(list_acuan)
+        bb = bb/len(list_acuan)
+        st.markdown('**Hasil rata-rata error total**')
+        st.markdown(temp)
+
 ############################################################## PROSEDUR UNTUK MENU SIDEBAR
 
 if sb_menu == 'Home':
@@ -124,6 +174,25 @@ if sb_menu == 'CNN Segmentation':
     test_button = st.button('Show testing result', key=0)
     if test_button:
         subprocess.Popen(r'explorer /select,"D:\DATA\Institut Teknologi Sepuluh Nopember\MATERI\SEMESTER VIII\Tugas Akhir\GitRepo\data\test\0.png"')
+    st.markdown('## **Metode Pengujian Citra**')
+    st.markdown('Metode perhitungan diuji dengan data testing yang telah diberikan label biner sama seperti data *training*.')
+    
+    sb_dsc = st.selectbox('Pilih Threshold:', ('30','220'), index = 0)
+    path_predict = './data-gui/example/result threshold '+str(sb_dsc)+'/'
+    path_acuan = './data-gui/example/Ground Truth/'
+    
+    st.markdown('### **Dice Similarity Coefficient**')
+    st.markdown('Data label ini akan digunakan untuk mencari akurasi model CNN dengan metode Dice Similarity Coefficient (DSC) dijelaskan pada dibawah ini:')
+    st.markdown('$$DSC={2\cdot|A\cap B|\over |A| + |B|}$$')
+    st.markdown('dimana A adalah gambar label dan B adalah gambar dari hasil prediksi model CNN.')
+    dscdef()
+
+    st.markdown('### **Pixel Difference**')
+    st.markdown('Kesalahan nilai pengukuran menggunakan metode perbedaan jumlah piksel non-zero (berwarna putih) dari gambar label dan gambar prediksi. Pengukuran menggunakan persamaan perbandingan absolut selisih dari jumlah piksel non-zero gambar label dan gambar prediksi dengan jumlah piksel non-zero gambar label seperti persamaan dibawah ini:')
+    st.markdown('$$Error={|RA_{label} - RA_{pred}|\over RA_{label}}$$')
+    st.markdown('Dimana $${RA_{label}}$$ merupakan jumlah piksel non-zero gambar label dan $${RA_{pred}}$$ merupakan jumlah piksel non-zero gambar prediksi.')
+    pixeld()
+    
 if sb_menu == 'Convertion':
     st.header('**Konversi Sekuens Gambar ke Video**')
     st.markdown('Pada halaman ini akan menjelaskan bagaimana metode untuk mengembalikan keluaran dari sistem CNN, berupa gambar, menjadi sebuah video yang memiliki properti yang sama hanya saja ditambahkan *mask* yaitu daerah spesifik yang menunjukkan *region of interest* (ROI) dari arteri radialis. Perlu digarisbawahi bahwa hasil konversi ini akan berhasil jika data *testing* yang diuji pada model CNN harus berupa sekuens *frame* dari sebuah video. Bagian konversi ini akan dibagi menjadi dua tahap yaitu proses *masking* dan proses *compressing*.')

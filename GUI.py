@@ -15,6 +15,15 @@ from skimage import exposure
 from scipy.ndimage import gaussian_filter
 import subprocess
 
+## Inisialisasi Library Keras
+import os 
+import skimage.transform as trans 
+from tensorflow.keras.models import *
+from tensorflow.keras.layers import *
+from tensorflow.keras.optimizers import *
+from tensorflow.keras.callbacks import ModelCheckpoint, LearningRateScheduler
+from tensorflow.keras import backend as keras
+
 
 
 ############################################################## INISIALISASI
@@ -59,6 +68,98 @@ def filter_func():
             img_median = ndimage.median_filter(img_histeq, size= 20)
             st.image([cropped[i], img_gaussian, rescale, img_histeq, img_median], caption = cap_list_filter, width = 125)
             st.image([cropped[i],img_median], caption = ['Gambar Hasil Cropping', 'Hasil Proses Filtering'], width = 330)
+
+@st.cache(allow_output_mutation=True)
+def unet(pretrained_weights = None, input_size = (256,256, 1)):
+    inputs = Input(input_size)
+    #keras.layers.Conv2D(filters, kernel_size, strides=(1, 1), 
+    #                   padding='valid', data_format=None, 
+    #                   dilation_rate=(1, 1), activation=None, 
+    #                   use_bias=True, kernel_initializer='glorot_uniform', 
+    #                   bias_initializer='zeros', kernel_regularizer=None, 
+    #                   bias_regularizer=None, activity_regularizer=None, 
+    #                   kernel_constraint=None, bias_constraint=None)
+    
+    # Rangkaian Extraction 1
+    conv1 = Conv2D(64, 3 , activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(inputs)
+    conv1 = Conv2D(64, 3 , activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv1)
+    pool1 = MaxPooling2D(pool_size = (2,2))(conv1)
+
+    # Rangkaian Extraction 2
+    conv2 = Conv2D(128, 3 , activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(pool1)
+    conv2 = Conv2D(128, 3 , activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv2)
+    pool2 = MaxPooling2D(pool_size = (2,2))(conv2)
+
+    # Rangkaian Extraction 3
+    conv3 = Conv2D(256, 3 , activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(pool2)
+    conv3 = Conv2D(256, 3 , activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv3)
+    pool3 = MaxPooling2D(pool_size = (2,2))(conv3)
+
+    # Rangkaian Extraction 4
+    conv4 = Conv2D(512, 3 , activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(pool3)
+    conv4 = Conv2D(512, 3 , activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv4)
+    drop4 = Dropout(0.5)(conv4)
+    pool4 = MaxPooling2D(pool_size = (2,2))(drop4)
+
+    # Rangkaian Extraction 5
+    conv5 = Conv2D(1024, 3 , activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(pool4)
+    conv5 = Conv2D(1024, 3 , activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv5)
+    drop5 = Dropout(0.5)(conv5)
+
+    # Rangkaian Expansion 1
+    up6 = Conv2D(512, 2, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(UpSampling2D(size = (2,2))(drop5))
+    merge6 = concatenate([drop4, up6], axis = 3)
+    conv6 = Conv2D(512, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(merge6)
+    conv6 = Conv2D(512, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv6)
+
+    # Rangkaian Expansion 2
+    up7 = Conv2D(256, 2, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(UpSampling2D(size = (2,2))(conv6))
+    merge7 = concatenate([conv3, up7], axis = 3)
+    conv7 = Conv2D(256, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(merge7)
+    conv7 = Conv2D(256, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv7)
+
+    # Rangkaian Expansion 3
+    up8 = Conv2D(128, 2, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(UpSampling2D(size = (2,2))(conv7))
+    merge8 = concatenate([conv2, up8], axis = 3)
+    conv8 = Conv2D(128, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(merge8)
+    conv8 = Conv2D(128, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv8)
+
+    # Rangkaian Expansion 4
+    up9 = Conv2D(64, 2, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(UpSampling2D(size = (2,2))(conv8))
+    merge9 = concatenate([conv1, up9], axis = 3)
+    conv9 = Conv2D(64, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(merge9)
+    conv9 = Conv2D(64, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv9)
+    #conv9 = Conv2D(2, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv9)
+    
+    # Rangkaian Expansion 5
+    conv10 = Conv2D(1, 1, activation = 'sigmoid')(conv9)
+
+    # Membuat Model 
+    model = Model(inputs = inputs, outputs = conv10)
+
+    model.compile(optimizer = Adam(lr = 1e-4), loss = 'binary_crossentropy', metrics = ['accuracy'])
+    model.summary()
+    if(pretrained_weights):
+        model.load_weights(pretrained_weights)
+    return model
+
+def saveResult(save_path, npyfile, flag_multi_class = False, num_class = 1):
+    for i, item in enumerate(npyfile):
+        img = labelVisualize(num_class, COLOR_DICT, item) if flag_multi_class else item[:,:,0]
+        print(img.shape)
+        #img = trans.resize(img, (432,532)) # Gambar USG TA
+        img = trans.resize(img, (512,470)) # Gambar USG Phantom
+        io.imsave(os.path.join(save_path,"%d_predict.png"%i), img, check_contrast=False)
+
+def testGenerator(test_path, num_image = 500, target_size = (256,256), flag_multi_class = False, as_gray = True):
+    for i in range(num_image):
+        #img = io.imread(os.path.join(test_path, "%d.png"%i), as_gray = as_gray)
+        img = io.imread(os.path.join(test_path, "%d.png"%i), as_gray = as_gray)
+        img = img / 255
+        img = trans.resize(img, target_size)
+        img = np.reshape(img, img.shape+(1,)) if (not flag_multi_class) else img
+        img = np.reshape(img, (1,)+img.shape)
+        yield img
 
 def masking(img, mask, th, height=432, width=532, color = None):
     '''.'''
@@ -166,14 +267,30 @@ if sb_menu == 'Pre-processing':
 
 if sb_menu == 'CNN Segmentation':
     st.header('**Segmentation**')
+    unet_arch = io.imread('./data-gui/unet-architecture.png')
     st.markdown('Convolutional Neural Network membutuhkan masukan dengan persyaratan tertentu. Gambar training pada umumnya hanya memiliki persebaran intensitas warna grayscale pada setiap pikselnya, namun membentuk array gambar 3 dimensi karena memiliki kanal warna RGB. Label yang juga berupa array biner hanya membentuk gambar 2 dimensi array gambar dengan nilai 0 dan 1 sebagai intensitas warnanya. Gambar training dan label dipasangkan berdasarkan nama yang sama. Proses training tidak hanya menggunakan satu gambar, tetapi ribuan gambar grayscale.')
     st.markdown('### **Grafik pada saat training**')
     cap_list_graf = ['Akurasi pada epoch 10', 'Akurasi pada epoch 100', 'Loss pada epoch 10', 'Loss pada epoch 100']
     st.image([grafik[0], grafik[1], grafik[2], grafik[3]], caption = cap_list_graf, width=330)
-    st.markdown('### **Hasil Data Testing**')
-    test_button = st.button('Show testing result', key=0)
+    st.markdown('### **Prediksi Citra dengan Model CNN**')
+    st.markdown('Arsitektur yang digunakan adalah U-Net, jaringan neural network yang sudah banyak digunakan untuk segmentasi gambar biomedik. Jaringan ini diberi nama U-Net dengan alasan sederhana, karena bentuk arsitekturnya seperti huruf U dapat dilihat pada gambar dibawah. Hal ini disebabkan karena adanya dua jalur yaitu contracting path dan expansive path. Bagian Contracting sama dengan arsitektur convolutional network pada umumnya. Terdiri dari dua kali 3×3 konvolusi (padding same), setiap konvolusi diikuti rectified linear unit (ReLU) dan sebuah operasi 2×2 max pooling dengan stride 2 poin untuk downsampling. Di setiap downsampling jumlah feature channel dikali dua. Setiap langkah pada expansive path terdiri dari upsampling feature map diikuti dengan 2×2 up-convolution yang membagi dua jumlah dari feature channel, concatenation dengan feature map yang berhubungan dengan contracting path, dan dua konvolusi 3×3, setiap konvolusi diikuti dengan ReLU. Pada layer akhir, sebuah konvolusi 1×1 digunakan untuk memetakan setiap 64-komponen feature vector ke jumlah kelas yang diinginkan. Total jaringan menggunakan 23 layer konvolusi sudah termasuk up sampling convolution. ')
+    st.image(unet_arch, caption='U-Net: Convolutional Networks for Biomedical Image Segmentation (Olaf Ronneberger, Philipp Fischer, Thomas Brox)', use_column_width=True)
+    st.markdown('**Berikut adalah demo program prediksi model CNN: ** *(klik Run)*')
+
+    model_checkpoint = ModelCheckpoint('unet_weights100.hdf5', monitor='loss',verbose=1, save_best_only=True)
+    model = unet(pretrained_weights='unet_weights100.hdf5')
+    
+    run_button = st.button('Run', key = 0)
+    if run_button:
+        testGene = testGenerator('data/test-phantom') #Data Phantom
+        results = model.predict_generator(testGene,167,verbose=1, callbacks = [model_checkpoint])#cv2.normalize(src= model.predict_generator(testGene,237,verbose=1, callbacks = [model_checkpoint]), dst=None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+        #saveResult('data/test', results) #Data GE
+        saveResult('data/test-phantom', results) #Data Phantom
+        st.success('Proses prediksi sukses, silahkan buka folder!')
+    
+    test_button = st.button('Buka Folder', key=0)
     if test_button:
-        subprocess.Popen(r'explorer /select,"D:\DATA\Institut Teknologi Sepuluh Nopember\MATERI\SEMESTER VIII\Tugas Akhir\GitRepo\data\test\0.png"')
+        subprocess.Popen(r'explorer /select,"D:\DATA\Institut Teknologi Sepuluh Nopember\MATERI\SEMESTER VIII\Tugas Akhir\GitRepo\data\test-phantom\0.png"')
     st.markdown('## **Metode Pengujian Citra**')
     st.markdown('Metode perhitungan diuji dengan data testing yang telah diberikan label biner sama seperti data *training*.')
     

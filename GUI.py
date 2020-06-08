@@ -14,6 +14,7 @@ from scipy import ndimage, misc
 from skimage import exposure
 from scipy.ndimage import gaussian_filter
 import subprocess
+from PIL import Image
 
 ## Inisialisasi Library Keras
 import os 
@@ -27,7 +28,9 @@ from tensorflow.keras import backend as keras
 
 
 ############################################################## INISIALISASI
-st.title("GUI for U-Net Radar")
+#st.markdown('<style>' + open('./data-gui/font/changa.css').read() + '</style>', unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: #01174b; font-family: Montserrat;'>GUI for U-Net Radar</h1>", unsafe_allow_html=True)
+#st.title("GUI for U-Net Radar")
 list_menu = ['Home','Pre-processing', 'CNN Segmentation', 'Convertion']
 sb_menu = st.sidebar.selectbox('Pilih menu : ', list_menu, index = 0)
 
@@ -46,11 +49,13 @@ listname_graf = natsorted(grafik_path, key = lambda y : y.lower())
 grafik = [cv2.imread(graf) for graf in listname_graf]
 
 ############################################################# FUNGSI-FUNGSI
+
 def home_sb():
-    st.header('**Segmentasi Gambar Ultrasound Arteri Radialis Menggunakan Convolutional Neural Network untuk Akses Insersi Arteri**')
+    st.markdown("<h2 style='text-align: center; color: #4f83fc; font-family: Montserrat;'>Segmentasi Gambar Ultrasound Arteri Radialis Menggunakan Convolutional Neural Network untuk Akses Insersi Arteri</h2>", unsafe_allow_html=True)
+    #st.header('**Segmentasi Gambar Ultrasound Arteri Radialis Menggunakan Convolutional Neural Network untuk Akses Insersi Arteri**')
     st.markdown('## Abstrak')
-    st.write('Kateterisasi dan kanulasi melalui arteri radialis sudah menjadi prosedur umum yang dilakukan para ahli untuk masa perioperatif. Meskipun tingkat kesuksesan yang tinggi untuk para ahli berpengalaman menggunakan teknik palpasi, ada beberapa kasus yang mana secara teknis sedikit sulit (hipotensi dan obesitas). Komplikasi yang paling sering terjadi pada saat kateterisasi melalui arteri radialis adalah oklusi arteri sementara (19.7 %) dan hematoma (14.4%), dengan infeksi pada tempat pemasukan (1.3%), haemorrhage (0.53%), dan bacteremia (0.13%) [1]. Suatu sistem ultrasound menjadi pilihan untuk membantu visualisasi para ahli terkait kelebihannya dalam aspek kenyamanan, ekonomis, dan non-ionisasi. Penelitian tentang arteri radialis masih sangat minim karena morfologi yang lebih kecil daripada arteri umum lainnya (Arteri Karotis dan Femoralis). Penelitian Smistad, et al telah membuktikan bahwa sistem ultrasound pada pembuluh darah sudah sangat berkembang—menerapkan tiga metode sekaligus, deteksi, tracking, dan rekonstruksi 3D secara real-time—dan mempunyai potensi untuk dikembangkan pada arteri lainnya, arteri radialis. [2] Sistem yang dibutuhkan saat ini adalah sistem segmentasi otomatis yang mana pada kali ini mengusulkan penggunaan metode deep learning Convolution Neural Network (CNN) untuk mendapatkan visualisasi citra pembuluh darah arteri radialis sebagai alat dukung para ahli pada saat melakukan insersi ke intra-arterial. Sistem dibagi menjadi tiga proses yaitu persiapan data, segmentasi, dan konversi. Dari hasil pengujian, didapatkan bahwa proses segmentasi citra mendapatkan nilai rata-rata dice similarity coefficient sebesar 0.935 dan rata-rata nilai error 0.124.')
-    #st.markdown("<h4 style='text-align: justify; color: black;'>Kateterisasi dan kanulasi melalui arteri radialis sudah menjadi prosedur umum yang dilakukan para ahli untuk masa perioperatif. Meskipun tingkat kesuksesan yang tinggi untuk para ahli berpengalaman menggunakan teknik palpasi, ada beberapa kasus yang mana secara teknis sedikit sulit (hipotensi dan obesitas). Komplikasi yang paling sering terjadi pada saat kateterisasi melalui arteri radialis adalah oklusi arteri sementara (19.7 %) dan hematoma (14.4%), dengan infeksi pada tempat pemasukan (1.3%), haemorrhage (0.53%), dan bacteremia (0.13%) [1]. Suatu sistem ultrasound menjadi pilihan untuk membantu visualisasi para ahli terkait kelebihannya dalam aspek kenyamanan, ekonomis, dan non-ionisasi. Penelitian tentang arteri radialis masih sangat minim karena morfologi yang lebih kecil daripada arteri umum lainnya (Arteri Karotis dan Femoralis). Penelitian Smistad, et al telah membuktikan bahwa sistem ultrasound pada pembuluh darah sudah sangat berkembang—menerapkan tiga metode sekaligus, deteksi, tracking, dan rekonstruksi 3D secara real-time—dan mempunyai potensi untuk dikembangkan pada arteri lainnya, arteri radialis. [2] Sistem yang dibutuhkan saat ini adalah sistem segmentasi otomatis yang mana pada kali ini mengusulkan penggunaan metode deep learning Convolution Neural Network (CNN) untuk mendapatkan visualisasi citra pembuluh darah arteri radialis sebagai alat dukung para ahli pada saat melakukan insersi ke intra-arterial. Sistem dibagi menjadi tiga proses yaitu persiapan data, segmentasi, dan konversi. Dari hasil pengujian, didapatkan bahwa proses segmentasi citra mendapatkan nilai rata-rata dice similarity coefficient sebesar 0.935 dan rata-rata nilai error 0.124.</h1>", unsafe_allow_html=True)
+    st.markdown("<p style='font-size: 16px; text-align: justify; color: black;'>Kateterisasi dan kanulasi melalui arteri radialis sudah menjadi prosedur umum yang dilakukan para ahli untuk masa perioperatif. Meskipun tingkat kesuksesan yang tinggi untuk para ahli berpengalaman menggunakan teknik palpasi, ada beberapa kasus yang mana secara teknis sedikit sulit (hipotensi dan obesitas). Komplikasi yang paling sering terjadi pada saat kateterisasi melalui arteri radialis adalah oklusi arteri sementara (19.7 %) dan hematoma (14.4%), dengan infeksi pada tempat pemasukan (1.3%), haemorrhage (0.53%), dan bacteremia (0.13%) [1]. Suatu sistem ultrasound menjadi pilihan untuk membantu visualisasi para ahli terkait kelebihannya dalam aspek kenyamanan, ekonomis, dan non-ionisasi. Penelitian tentang arteri radialis masih sangat minim karena morfologi yang lebih kecil daripada arteri umum lainnya (Arteri Karotis dan Femoralis). Penelitian Smistad, et al telah membuktikan bahwa sistem ultrasound pada pembuluh darah sudah sangat berkembang—menerapkan tiga metode sekaligus, deteksi, tracking, dan rekonstruksi 3D secara real-time—dan mempunyai potensi untuk dikembangkan pada arteri lainnya, arteri radialis. [2] Sistem yang dibutuhkan saat ini adalah sistem segmentasi otomatis yang mana pada kali ini mengusulkan penggunaan metode deep learning Convolution Neural Network (CNN) untuk mendapatkan visualisasi citra pembuluh darah arteri radialis sebagai alat dukung para ahli pada saat melakukan insersi ke intra-arterial. Sistem dibagi menjadi tiga proses yaitu persiapan data, segmentasi, dan konversi. Dari hasil pengujian, didapatkan bahwa proses segmentasi citra mendapatkan nilai rata-rata dice similarity coefficient sebesar 0.935 dan rata-rata nilai error 0.124.</h1>", unsafe_allow_html=True)
+
 def crop_func(): 
     slide_crop = st.slider('', min_value = 0, max_value = len(file_path)-1, key = 0)
     for i in range(len(file_path)):
@@ -196,8 +201,13 @@ def masking_def():
 def compressing_def():
     compress_file = open('./data-gui/example/video/testFinalWeight.mp4','rb')
     compress_bytes = compress_file.read()
+    compress_file1 = open('./data-gui/example/video/phantom.mp4','rb')
+    compress_bytes1 = compress_file1.read()
 
     st.video(compress_bytes)
+    st.markdown("<p style='font-size: 16px; text-align: center; color: black;'>Hasil Konversi pada Dataset USG GE C5P</p>", unsafe_allow_html=True)
+    st.video(compress_bytes1)
+    st.markdown("<p style='font-size: 16px; text-align: center; color: black;'>Hasil Video pada Dataset USG Telemed SmartUs (Phantom)</p>", unsafe_allow_html=True)
 
 def dice(im1, im2, empty_score=1.0):
     im1 = np.asarray(im1).astype(np.bool)
@@ -209,6 +219,7 @@ def dice(im1, im2, empty_score=1.0):
         return empty_score
     intersection = np.logical_and(im1, im2)
     return 2. * intersection.sum() / im_sum
+
 def dscdef():
     dsc_button = st.button('Run DSC', key = 1)
     if dsc_button:
@@ -256,24 +267,48 @@ if sb_menu == 'Home':
 
 if sb_menu == 'Pre-processing':
     st.header('**Pre-Processing**')
-    st.markdown('Sebelum siap untuk menjadi masukan CNN, semua data harus melalui *pre-processing*. Pada penelitian kali ini proses tersebut meliputi *cropping* (pemotongan resolusi gambar) dan *image enhancement*.')
+    st.markdown("<p style='font-size: 16px; text-align: justify; color: black;'>Sebelum siap untuk menjadi masukan CNN, semua data harus melalui <i>pre-processing</i>. Pada penelitian kali ini proses tersebut meliputi <i>cropping</i> (pemotongan resolusi gambar) dan <i>image enhancement</i>.</p>", unsafe_allow_html=True)
     st.markdown('### **Cropping**')
-    st.markdown('Cropping berguna untuk memotong citra USG yang utuh agar tersisa bagian arteri yang diinginkan. Selain itu, hasil cropping harus serupa dengan resolusi masukan dari proses training CNN yaitu berukuran 256×256.')
+    st.markdown("<p style='font-size: 16px; text-align: justify; color: black;'><i>Cropping</i> berguna untuk memotong citra USG yang utuh agar tersisa bagian arteri yang diinginkan. Selain itu, hasil <i>cropping</i> harus serupa dengan resolusi masukan dari proses <i>training</i> CNN yaitu berukuran 256×256.</p>", unsafe_allow_html=True)
     crop_func()
+    
+
     st.markdown('### **Filter**')
-    st.markdown('image enhancement dengan empat filter berbeda, yaitu Gaussian Filter, Rescale Intensity, Histogram Equalization, dan Median Filter secara berurutan. Pemilihan keempat filter tersebut karena memberikan peningkatan kualitas citra di aspek-aspek tertentu, gaussian filter dengan sigma = 2 membantu menyamarkan noise (blur), rescale intensity berguna untuk memperjelas citra pada rentang tertentu dengan cara melebarkan (stretch) atau menyusutkan (shrink) intensitas pada pada citra, histogram equalization untuk meningkatkan kontras dari citra sehingga fitur yang diinginkan lebih terlihat jelas, dan median filter pada size 20 untuk mengurangi noise berupa bintik hitam putih kecil pada citra (salt dan pepper).')
+    st.markdown("<p style='font-size: 16px; text-align: justify; color: black;'>Image enhancement dengan empat filter berbeda, yaitu Gaussian Filter, Rescale Intensity, Histogram Equalization, dan Median Filter secara berurutan. Pemilihan keempat filter tersebut karena memberikan peningkatan kualitas citra di aspek-aspek tertentu, gaussian filter dengan sigma = 2 membantu menyamarkan noise (blur), rescale intensity berguna untuk memperjelas citra pada rentang tertentu dengan cara melebarkan (stretch) atau menyusutkan (shrink) intensitas pada pada citra, histogram equalization untuk meningkatkan kontras dari citra sehingga fitur yang diinginkan lebih terlihat jelas, dan median filter pada size 20 untuk mengurangi noise berupa bintik hitam putih kecil pada citra (salt dan pepper).</p>", unsafe_allow_html=True)
     slider_filter = st.slider('', min_value = 0, max_value = len(file_path)-1, key = 1)
     filter_func()
+    
+    st.markdown('### **Gunakan gambar lain : **')
+    upload_file = st.file_uploader('', type = 'png', key = 0)
+    if upload_file is not None:
+        images1 = Image.open(upload_file)
+        img_array1 = np.array(images1) # if you want to pass it to OpenCV
+        
+        img_gaussian1 = gaussian_filter(img_array1, sigma = 2)
+        rescale1 = exposure.rescale_intensity(img_gaussian1, in_range= (40,100))
+        img_histeq1 = cv2.normalize(src=exposure.equalize_hist(rescale1),dst = None,alpha=0,beta=255,norm_type=cv2.NORM_MINMAX,dtype=cv2.CV_8U)
+        img_median1 = ndimage.median_filter(img_histeq1, size= 20)
+        
+        pilih_filter = st.selectbox('', ('Filter Gaussian', 'Rescale Intesity', 'Histogram Equalization', 'Median Filter'), index = 0)
+        if pilih_filter == 'Filter Gaussian':
+            st.image([images1, img_gaussian1], caption = ['Gambar Asli', pilih_filter], width = 335)
+        if pilih_filter == 'Rescale Intesity':
+            st.image([images1, rescale1], caption = ['Gambar Asli', pilih_filter], width = 335)
+        if pilih_filter == 'Histogram Equalization':
+            st.image([images1, img_histeq1], caption = ['Gambar Asli', pilih_filter], width = 335)
+        if pilih_filter == 'Median Filter':
+            st.image([images1, img_median1], caption = ['Gambar Asli', pilih_filter], width = 335)
+
 
 if sb_menu == 'CNN Segmentation':
     st.header('**Segmentation**')
     unet_arch = io.imread('./data-gui/unet-architecture.png')
-    st.markdown('Convolutional Neural Network membutuhkan masukan dengan persyaratan tertentu. Gambar training pada umumnya hanya memiliki persebaran intensitas warna grayscale pada setiap pikselnya, namun membentuk array gambar 3 dimensi karena memiliki kanal warna RGB. Label yang juga berupa array biner hanya membentuk gambar 2 dimensi array gambar dengan nilai 0 dan 1 sebagai intensitas warnanya. Gambar training dan label dipasangkan berdasarkan nama yang sama. Proses training tidak hanya menggunakan satu gambar, tetapi ribuan gambar grayscale.')
+    st.markdown("<p style='font-size: 16px; text-align: justify; color: black;'>Convolutional Neural Network membutuhkan masukan dengan persyaratan tertentu. Gambar training pada umumnya hanya memiliki persebaran intensitas warna grayscale pada setiap pikselnya, namun membentuk array gambar 3 dimensi karena memiliki kanal warna RGB. Label yang juga berupa array biner hanya membentuk gambar 2 dimensi array gambar dengan nilai 0 dan 1 sebagai intensitas warnanya. Gambar training dan label dipasangkan berdasarkan nama yang sama. Proses training tidak hanya menggunakan satu gambar, tetapi ribuan gambar grayscale.</p>", unsafe_allow_html=True)
     st.markdown('### **Grafik pada saat training**')
     cap_list_graf = ['Akurasi pada epoch 10', 'Akurasi pada epoch 100', 'Loss pada epoch 10', 'Loss pada epoch 100']
     st.image([grafik[0], grafik[1], grafik[2], grafik[3]], caption = cap_list_graf, width=330)
     st.markdown('### **Prediksi Citra dengan Model CNN**')
-    st.markdown('Arsitektur yang digunakan adalah U-Net, jaringan neural network yang sudah banyak digunakan untuk segmentasi gambar biomedik. Jaringan ini diberi nama U-Net dengan alasan sederhana, karena bentuk arsitekturnya seperti huruf U dapat dilihat pada gambar dibawah. Hal ini disebabkan karena adanya dua jalur yaitu contracting path dan expansive path. Bagian Contracting sama dengan arsitektur convolutional network pada umumnya. Terdiri dari dua kali 3×3 konvolusi (padding same), setiap konvolusi diikuti rectified linear unit (ReLU) dan sebuah operasi 2×2 max pooling dengan stride 2 poin untuk downsampling. Di setiap downsampling jumlah feature channel dikali dua. Setiap langkah pada expansive path terdiri dari upsampling feature map diikuti dengan 2×2 up-convolution yang membagi dua jumlah dari feature channel, concatenation dengan feature map yang berhubungan dengan contracting path, dan dua konvolusi 3×3, setiap konvolusi diikuti dengan ReLU. Pada layer akhir, sebuah konvolusi 1×1 digunakan untuk memetakan setiap 64-komponen feature vector ke jumlah kelas yang diinginkan. Total jaringan menggunakan 23 layer konvolusi sudah termasuk up sampling convolution. ')
+    st.markdown("<p style='font-size: 16px; text-align: justify; color: black;'>Arsitektur yang digunakan adalah U-Net, jaringan neural network yang sudah banyak digunakan untuk segmentasi gambar biomedik. Jaringan ini diberi nama U-Net dengan alasan sederhana, karena bentuk arsitekturnya seperti huruf U dapat dilihat pada gambar dibawah. Hal ini disebabkan karena adanya dua jalur yaitu contracting path dan expansive path. Bagian Contracting sama dengan arsitektur convolutional network pada umumnya. Terdiri dari dua kali 3×3 konvolusi (padding same), setiap konvolusi diikuti rectified linear unit (ReLU) dan sebuah operasi 2×2 max pooling dengan stride 2 poin untuk downsampling. Di setiap downsampling jumlah feature channel dikali dua. Setiap langkah pada expansive path terdiri dari upsampling feature map diikuti dengan 2×2 up-convolution yang membagi dua jumlah dari feature channel, concatenation dengan feature map yang berhubungan dengan contracting path, dan dua konvolusi 3×3, setiap konvolusi diikuti dengan ReLU. Pada layer akhir, sebuah konvolusi 1×1 digunakan untuk memetakan setiap 64-komponen feature vector ke jumlah kelas yang diinginkan. Total jaringan menggunakan 23 layer konvolusi sudah termasuk up sampling convolution.</p>", unsafe_allow_html=True)
     st.image(unet_arch, caption='U-Net: Convolutional Networks for Biomedical Image Segmentation (Olaf Ronneberger, Philipp Fischer, Thomas Brox)', use_column_width=True)
     st.markdown('**Berikut adalah demo program prediksi model CNN: ** *(klik Run)*')
 
@@ -305,19 +340,23 @@ if sb_menu == 'CNN Segmentation':
     dscdef()
 
     st.markdown('### **Pixel Difference**')
-    st.markdown('Kesalahan nilai pengukuran menggunakan metode perbedaan jumlah piksel non-zero (berwarna putih) dari gambar label dan gambar prediksi. Pengukuran menggunakan persamaan perbandingan absolut selisih dari jumlah piksel non-zero gambar label dan gambar prediksi dengan jumlah piksel non-zero gambar label seperti persamaan dibawah ini:')
+    st.markdown("<p style='font-size: 16 px; text -align: justify; color: black;'>Kesalahan nilai pengukuran menggunakan metode perbedaan jumlah piksel non-zero (berwarna putih) dari gambar label dan gambar prediksi. Pengukuran menggunakan persamaan perbandingan absolut selisih dari jumlah piksel non-zero gambar label dan gambar prediksi dengan jumlah piksel non-zero gambar label seperti persamaan dibawah ini:</p>", unsafe_allow_html=True)
+    #st.markdown('Kesalahan nilai pengukuran menggunakan metode perbedaan jumlah piksel non-zero (berwarna putih) dari gambar label dan gambar prediksi. Pengukuran menggunakan persamaan perbandingan absolut selisih dari jumlah piksel non-zero gambar label dan gambar prediksi dengan jumlah piksel non-zero gambar label seperti persamaan dibawah ini:')
     st.markdown('$$Error={|RA_{label} - RA_{pred}|\over RA_{label}}$$')
     st.markdown('Dimana $${RA_{label}}$$ merupakan jumlah piksel non-zero gambar label dan $${RA_{pred}}$$ merupakan jumlah piksel non-zero gambar prediksi.')
     pixeld()
     
 if sb_menu == 'Convertion':
     st.header('**Konversi Sekuens Gambar ke Video**')
-    st.markdown('Pada halaman ini akan menjelaskan bagaimana metode untuk mengembalikan keluaran dari sistem CNN, berupa gambar, menjadi sebuah video yang memiliki properti yang sama hanya saja ditambahkan *mask* yaitu daerah spesifik yang menunjukkan *region of interest* (ROI) dari arteri radialis. Perlu digarisbawahi bahwa hasil konversi ini akan berhasil jika data *testing* yang diuji pada model CNN harus berupa sekuens *frame* dari sebuah video. Bagian konversi ini akan dibagi menjadi dua tahap yaitu proses *masking* dan proses *compressing*.')
+    st.markdown("<p style='font-size: 16px; text-align: justify; color: black;'>Pada halaman ini akan menjelaskan bagaimana metode untuk mengembalikan keluaran dari sistem CNN, berupa gambar, menjadi sebuah video yang memiliki properti yang sama hanya saja ditambahkan *mask* yaitu daerah spesifik yang menunjukkan *region of interest* (ROI) dari arteri radialis. Perlu digarisbawahi bahwa hasil konversi ini akan berhasil jika data testing yang diuji pada model CNN harus berupa sekuens frame dari sebuah video. Bagian konversi ini akan dibagi menjadi dua tahap yaitu proses masking dan proses compressing.</p>", unsafe_allow_html=True)
+    #st.markdown('Pada halaman ini akan menjelaskan bagaimana metode untuk mengembalikan keluaran dari sistem CNN, berupa gambar, menjadi sebuah video yang memiliki properti yang sama hanya saja ditambahkan *mask* yaitu daerah spesifik yang menunjukkan *region of interest* (ROI) dari arteri radialis. Perlu digarisbawahi bahwa hasil konversi ini akan berhasil jika data *testing* yang diuji pada model CNN harus berupa sekuens *frame* dari sebuah video. Bagian konversi ini akan dibagi menjadi dua tahap yaitu proses *masking* dan proses *compressing*.')
     st.markdown('### **Proses Masking**')
-    st.markdown('Proses masking pada dasarnya hanya menempel gambar prediksi baik pada gambar training maupun gambar asli dari USG tanpa mengurangi kualitasnya (resolusi hasil masking sama dengan hasil citra USG asli). Penambahan warna pada gambar prediksi menjadi penting sebagai pembeda ROI.')
+    st.markdown("<p style='font-size: 16px; text-align: justify; color: black;'>Proses masking pada dasarnya hanya menempel gambar prediksi baik pada gambar training maupun gambar asli dari USG tanpa mengurangi kualitasnya (resolusi hasil masking sama dengan hasil citra USG asli). Penambahan warna pada gambar prediksi menjadi penting sebagai pembeda ROI.</p>", unsafe_allow_html=True)
+    #st.markdown('Proses masking pada dasarnya hanya menempel gambar prediksi baik pada gambar training maupun gambar asli dari USG tanpa mengurangi kualitasnya (resolusi hasil masking sama dengan hasil citra USG asli). Penambahan warna pada gambar prediksi menjadi penting sebagai pembeda ROI.')
     masking_def()
     st.markdown('### **Proses Compressing**')
-    st.markdown('Pada dasarnya tujuan dari *compressing* ini cukup sederhana, yaitu menggabungkan semua hasil *masking* pada satu video utuh dan kembali mempunyai format seperti video USG asli. Ada banyak cara untuk menggabungkan *frame*, namun cara yang paling sederhana dan cepat adalah menggunakan FFmpeg.')
+    st.markdown("<p style='font-size: 16px; text-align: justify; color: black;'>Pada dasarnya tujuan dari *compressing* ini cukup sederhana, yaitu menggabungkan semua hasil *masking* pada satu video utuh dan kembali mempunyai format seperti video USG asli. Ada banyak cara untuk menggabungkan *frame*, namun cara yang paling sederhana dan cepat adalah menggunakan FFmpeg.</p>", unsafe_allow_html=True)
+    #st.markdown('Pada dasarnya tujuan dari *compressing* ini cukup sederhana, yaitu menggabungkan semua hasil *masking* pada satu video utuh dan kembali mempunyai format seperti video USG asli. Ada banyak cara untuk menggabungkan *frame*, namun cara yang paling sederhana dan cepat adalah menggunakan FFmpeg.')
     st.markdown('Berikut adalah kode *compressing* menggunakan aplikasi FFmpeg pada *command-line*')
     st.code("""ffmpeg -r 30 -f image2 -i %d.png -vcodec libx264 -crf 15  -pix_fmt yuv420p test.mp4
     """, language="python")

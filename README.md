@@ -13,5 +13,5 @@ The flow of architecture devided by two main processes, Extraction and Expansion
 
 ## Conclusion
 
-Please watch this video for a brief explenation about the study https://youtu.be/1nGn3kSKu88
+Please watch this video for a brief explanation about the study https://youtu.be/1nGn3kSKu88
 Thank you 😊

@@ -10,3 +10,8 @@ Almost forgot, testing images provided on **'./data/test'**, testing path will a
 
 Inspired from [Olaf Ronneberger, U-Net Architecture](https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/)
 The flow of architecture devided by two main processes, Extraction and Expansion until finaly yield one fully connected layer.
+
+## Conclusion
+
+Please watch this video for a brief explenation about the study https://youtu.be/1nGn3kSKu88
+Thank you 😊
